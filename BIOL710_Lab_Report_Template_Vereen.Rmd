@@ -1,0 +1,332 @@
+---
+title: "Chapter 1"
+author: "Timara, Anahei, Gerardo"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r load-packages, message=FALSE}
+library(tidyverse)
+```
+
+# set working directory for all chunks in this file (default working directory is wherever Rmd file is)
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = 'C:/Users/timar/OneDrive/Documents/SFSU/BIOL 710/working_directory')
+```
+
+```{r}
+# importing the anole data
+anole <- read.csv("anole.csv",header=TRUE,stringsAsFactors=TRUE)
+#use the function read.csv() to import the anole.csv file
+#See the example below. Note the use of the commands header=TRUE in order to treat the first row of the data frame as a header
+#stringsASFactors=TRUE to indicate that strings in the data frame should be treated as factor variables
+```
+
+```{r}
+str(anole)
+#using the function str(), we can look into the the structure of the anole.csv. 
+#This function gives us information about the class of the data object (i.e., “anole.csv”)
+#what variables are in the data object, and how many observations we have in the data object.
+```
+
+
+### Question or Discussion Question or Challenge or Stop/Think/Do etc. 
+### Outside a code chunk, ### indicates a header
+
+### Question 1
+What is the class of the dataset “anole.csv” (e.g., data frame, table, tibble)?
+The dataset "anole.csv" is a dataframe
+
+How many observations and variables does the dataset “anole.csv” have?
+There are 21 variables and 164 observations in the dataset
+
+What is the class of each variable in the dataset “anole.csv” (e.g., character, factor, numeric, integer)?
+ID - character
+Hurricane - character
+Origin - character
+Sex - character
+SVL - numeric
+Femur - numeric
+Tibia - numeric
+Metatarsal - numeric
+LongestToe - numeric
+Humerus - numeric
+Radius - numeric
+Metacarpal - numeric
+LongestFinger - numeric
+FingerCount - numeric
+ToeCount - numeric
+FingerArea1 - numeric
+FingerArea2 - numeric
+FingerArea3 - numeric
+ToeArea1 - numeric
+ToeArea2 - numeric
+ToeArea3 - numeric
+
+
+```{r}
+ class(anole)
+"data.frame" 
+class(anole$ID)
+"character"
+class(anole$Hurricane)
+"character"
+class(anole$Tibia)
+"numeric"
+class(anole$Origin)
+"character"
+class(anole$SVL)
+"numeric"
+class(anole$Femur)
+"numeric"
+class(anole$Metatarsal)
+"numeric"
+class(anole$LongestToe)
+"numeric"
+class(anole$Humerus)
+"numeric"
+class(anole$Radius)
+"numeric"
+class(anole$Metacarpal)
+"numeric"
+class(anole$LongestFinger)
+"numeric"
+class(anole$FingerCount)
+"numeric"
+class(anole$ToeCount)
+"numeric"
+class(anole$FingerArea1)
+"numeric"
+class(anole$FingerArea2)
+"numeric"
+class(anole$FingerArea3)
+"numeric"
+class(anole$ToeArea1)
+"numeric"
+class(anole$ToeArea2)
+"numeric"
+class(anole$ToeArea3)
+"numeric"
+```
+
+
+### Question 2
+How many levels does the variable Sex have?
+I got Null for levels when I came my code, but the levels are male and female in the variable Sex.
+
+What is the mean Femur length of “anole.csv”?
+The mean Femur length of anole.csv is 10.91866.
+
+What are the first three variables in “anole.csv”? 
+The first three variable in anole.csv are ID, Hurricane, and Origin.
+
+```{r}
+# levels of the variable Sex, the $ sign means "within"
+levels(anole$Sex)
+```
+```{r}
+mean(anole$Femur)
+#10.91866
+```
+```{r}
+head(anole[, 1:3])
+names(anole)[1:3]
+#"ID" "Hurricane" "Origin"
+```
+
+
+### Repeat these blocks of headers (with ###), text, and code chunks for each Question on the Lab Manual. To add another code chunk, you can either copy paste a previous empty one, or by pressing the green +C button in the top right corner. 
+
+```{r}
+# installing tidyverse
+install.packages("tidyverse",repos="http://cran.us.r-project.org")
+
+# loading tidyverse
+library(tidyverse)
+```
+```{r}
+# selecting the column femur
+femurs <- select(anole, Femur)
+
+# checking the new object created
+femurs
+```
+###Question 3
+Is the new object in the Global Environment?
+Yes, the new object labeled, femurs, is within the Global Environment.
+
+```{r}
+# filtering femurs by femur length > 10mm
+femurs_10mm <- filter(femurs, Femur>10)
+
+# checking the new object created
+femurs_10mm
+```
+```{r}
+max(femurs_10mm)
+#15.38
+```
+###Question 4
+What’s the longest femur length in femurs_10mm?
+The longest femur length in femurs_10mm is 15.38
+
+How many observations does femurs_10mm have?
+There are 103 observations in femurs_10mm.
+
+```{r}
+# mean femur length
+mean(anole$Femur)
+#10.91866
+
+# median femur length
+median(anole$Femur)
+#10.715
+
+# minimum femur length
+min(anole$Femur)
+#7.9
+
+# max femur length
+max(anole$Femur)
+#15.38
+
+# range of values for femur length
+range(anole$Femur)
+#7.90 - 15.38
+
+summary(anole$Femur)
+```
+###Question 5
+Do you get the same results from the summary() function?
+Yes, we do, however, the results from summary() function have decimals out to the thousandths place, and the previous code produces values that have decimals out to the hundredths place (exception of the mean value femur length value).
+
+
+###Lizard Work
+### Question 1
+What is the class of the dataset “lizards.csv” (e.g., data frame, table, tibble)?
+The dataset "lizards.csv" is a dataframe
+
+How many observations and variables does the dataset “lizards.csv” have?
+There are 21 variables and 164 observations in the dataset
+
+What is the class of each variable in the dataset “lizards.csv” (e.g., character, factor, numeric, integer)?
+ID - character
+Hurricane - character
+Origin - character
+Sex - character
+SVL - numeric
+Femur - numeric
+Tibia - numeric
+Metatarsal - numeric
+LongestToe - numeric
+Humerus - numeric
+Radius - numeric
+Metacarpal - numeric
+LongestFinger - numeric
+FingerCount - numeric
+ToeCount - numeric
+FingerArea1 - numeric
+FingerArea2 - numeric
+FingerArea3 - numeric
+ToeArea1 - numeric
+ToeArea2 - numeric
+ToeArea3 - numeric
+
+```{r}
+# importing the anole data
+lizards <- read.csv("lizards.csv",header=TRUE,stringsAsFactors=TRUE)
+str(lizards)
+#21 variables and 104 observations
+#4 are characters and 17 numeric
+```
+### Question 2
+How many levels does the variable Sex have?
+I got Null for levels when I came my code, but the levels are male and female in the variable Sex.
+
+What is the mean Femur length of “lizards.csv”?
+The mean Femur length of lizard.csv is 10.85942.
+
+What are the first three variables in “lizards.csv”? 
+The first three variable in lizards.csv are ID, Hurricane, and Origin.
+
+```{r}
+# levels of the variable Sex, the $ sign means "within"
+levels(lizards$Sex)
+# NULL but the levels in Sex variable are Male and Female
+mean(lizards$Femur)
+#10.85942
+
+head(lizards[, 1:3])
+names(lizards)[1:3]
+```
+###Question 3
+Is the new object in the Global Environment?
+Yes, the new object labeled, lizzie_femurs, is within the Global Environment.
+```{r}
+# selecting the column femur
+lizzie_femurs <- select(lizards, Femur)
+
+# checking the new object created
+lizzie_femurs
+```
+
+###Question 4
+What’s the longest femur length in long_lizzie_femurs?
+The longest lizard femur length in  long_lizzie_femus is 15.38
+
+How many observations does long_lizzie_femurs have?
+There are 61 observations in long_lizzie_femurs.
+
+```{r}
+# filtering femurs by femur length > 10mm
+long_lizzie_femurs <- filter(lizzie_femurs, Femur>10)
+
+# checking the new object created
+long_lizzie_femurs
+
+max(long_lizzie_femurs)
+#15.38
+```
+```{r}
+# mean lizard femur length
+mean(lizards$Femur)
+#10.85942
+
+# median femur length
+median(lizards$Femur)
+#10.63
+
+# minimum femur length
+min(lizards$Femur)
+#7.9
+
+# max femur length
+max(lizards$Femur)
+#15.38
+
+# range of values for femur length
+range(lizards$Femur)
+#7.90 - 15.38
+
+summary(lizards$Femur)
+```
+###Question 5
+Do you get the same results from the summary() function?
+Yes, we do, however, the results from summary() function have decimals out to the thousandths place, and the previous code produces values that have decimals out to the hundredths place (exception of the mean value femur length value).
+
+###Discussion Questions
+Now that you are more familiarized with RStudio, can you describe its layout including its four principal components (windows)?
+Yes! R is very user friendly with different windows for navigating and displaying the various apsects of coding. Within the top left corner is the source/editor box which is where R markdown and R script files can be created and opened to write and produce code. The top right box is the environment box. This box holds onto objects(e.g txt files, csv, etc) that are created from your source code. You can also upload these types of files from your computer into the environment. You can also save objects within your environment and reupload it for later usage by saving it as a a R.Data file. The bottom left box is the console which is where your commands from your source code are processed. You can see and read any errors you get from your code in the console too. You can also type and code directly into this console and get instant results. The last box (bottom right) is the files, plots, help, viewer, presentation box. You can see your current working directory here and access files from your computer that you may want to use within R. The plots tab can display graphs created from source code you created. The Help tab can tell you more information about features in R. The packages tab allows you to see what packages are available and can select specific packages you need to run your code. You  also update and install packages through this tab with the "install" and "update" buttons.
+
+Mention three benefits of annotating your script.
+Three benefits of annotation your script is that you have notes to describe what you are doing or what your code is doing. Annotating your script is also helpful for both yourself and others that may want to reproduce and use your code in the future. In addition, by annotating your work people can see what you did and potentially troubleshoot your work if you or a collaborator run into errors in the future.
+
+How do you set a path between R and the location of your files in your computer?
+There are multiple ways to set a path between R and the location of your files in your computer. The first way could be by going through the "Session" tab of Rstudio and selecting "Set working directory" in the dropdown menu, and then "choose directory" from your files on your computer. The other way is to select "Files" in the Files, Plots, Packages, Help... task bar, select the cog wheel "More" dropdown bar and select "Set as Working Directory" on your chosen directory path.
+
+Why would you use the str() function?
+You would use the str() function to delve deeper into the contents of your data. Using the str() function allows you to see what variables are listed within your data, what type/class of data you have (e.g. dataframe, list, etc) as well as how many listed entries/observations are within the dataset.
+
+When you are done (or just to check how it is looking), you can click the Knit button at the top. Default is usually to Knit to html---this is how you can turn your project into a website! To submit your Lab Report, instead Knit to PDF using the triangle drop-down and submit on Canvas. 
